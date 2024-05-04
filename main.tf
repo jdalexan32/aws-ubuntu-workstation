@@ -16,7 +16,7 @@ variable "aws_pem" {
 
 provider "aws" {
   region                  = var.aws_region
-  shared_credentials_files= var.aws_creds_file
+  shared_credentials_files= [var.aws_creds_file]
   profile                 = var.aws_profile
 }
 
@@ -26,19 +26,18 @@ data "http" "myip" {
 
 data "aws_availability_zones" "all" {}
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+data "aws_ami_ids" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-24.04-amd64-server-*"]
+    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
   }
-
+  
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
+  
   owners = ["099720109477"]
 }
 
