@@ -20,17 +20,23 @@ provider "aws" {
   profile                 = var.aws_profile
 }
 
+variable "ssh_key" {
+  description = "The AWS Key Pair to use for SSH"
+}
+
 data "http" "myip" {
   url = "https://api.ipify.org"
 }
 
 data "aws_availability_zones" "all" {}
 
-data "aws_ami_ids" "ubuntu" {
-
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  
   filter {
     name   = "name"
-    values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+    #values = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
   
   filter {
@@ -120,3 +126,32 @@ resource "aws_security_group_rule" "allow_all" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.work-sg.id
 }
+
+resource "aws_instance" "workstation1" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3a.xlarge"
+  key_name               = var.ssh_key
+  vpc_security_group_ids = [aws_security_group.work-sg.id]
+  subnet_id              = aws_subnet.work-subnet.id
+  user_data              = file("workstation1.sh")
+  tags = {
+    Name = "workstation1"
+  }
+}
+
+output "ssh_connection_string" {
+  value = "ssh -i ${var.aws_pem} ubuntu@${aws_instance.workstation1.public_ip}"
+}
+
+output "RDP_address" {
+  value = aws_instance.workstation1.public_ip
+}
+
+output "RDP_UserName" {
+  value = "student"
+}
+
+output "RDP_Password" {
+  value = "ChangeMe"
+}
+
