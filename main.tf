@@ -161,10 +161,10 @@ output "RDP_address" {
 }
 
 output "RDP_UserName" {
-  value = "student"
+  value = "jay"
 }
 
 output "RDP_Password" {
-  value = "ChangeMe"
+  value = "HachlefSisma"
 }
 
