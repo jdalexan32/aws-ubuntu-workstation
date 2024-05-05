@@ -1,8 +1,42 @@
 # aws-ubuntu-workstation
 This terraform script deploys an Ubuntu Workstation with minimal additional software
-installed. An example use case if a temporary sandbox system for surfing potentially
-dangerous websites. _NOTE: Don't break the law, as AWS Terms of Service still apply
-and this is not exactly covert._
+installed.
+
+## AWS CloudShell Deployment
+Open new CloudShell environment
+Install Terraform from - https://releases.hashicorp.com/terraform/
+
+```
+wget https://releases.hashicorp.com/terraform/1.8.2/terraform_1.8.2_linux_amd64.zip
+unzip terraform*.zip
+mkdir ~/bin
+mv terraform ~/bin/
+rm terraform*.zip
+```
+
+Configure the User Profile in the CloudShell
+
+```
+aws configure --profile myterraform
+```
+Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key
+Enter ```eu-central-1``` for the Default region name and ```json``` for the Default output format
+Test it by running the following command
+```
+aws sts get-caller-identity --profile myterraform
+```
+
+Make a copy of the PEM file on CloudShell in ~/ from Bitwardem "aws_ubuntu_workstation.pem"
+
+```
+vim aws_ubuntu_workstation.pem
+```
+
+Change PEM file permissions
+
+```
+chmod 400 ~/aws_ubuntu_workstation.pem
+```
 
 ## DEPLOYMENT
 Git clone the repository and provision the cloud workstation by running the following
