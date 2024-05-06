@@ -51,22 +51,41 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 ```
 
 ## Prep Windows PC for Deployment
-Open Powershell. Go to ```cloud workstation``` directory
-
-```
-cd '.\cloud workstation\'
-```
-
-Verify ```git``` is installed
+Open Powershell. Verify ```git``` and ```terraform``` are installed.
 
 ```
 git --version
-```
-
-Verify ```terraform``` is installed
-
-```
 terraform --version
+```
+
+Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
+
+```
+New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
+Code  C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
+```
+Paste Private Key and save.__
+
+Set permission of file equivalent to chmod 400 on Windows.
+
+```
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /reset
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /grant:r "$($env:username):(r)"
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /inheritance:r
+```
+
+Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
+
+```
+code .\.aws\credentials
+```
+
+Paste Access key ID and Secret Access Key and save.__
+
+Go to ```cloud workstation``` directory
+
+```
+cd '.\cloud workstation\'
 ```
 
 ## DEPLOYMENT
@@ -83,7 +102,13 @@ cd aws-ubuntu-workstation
 ```
 
 Next modify the `terraform.tfvars` contents with the settings that are appropriate
-for your AWS Account.
+for your AWS Account.__
+
+for Windows PC for Deployment make the following changes to `terraform.tfvars` file
+
+```
+aws_pem = "~/.ssh/aws/aws_ubuntu_workstation.pem"
+```
 
 Now run these commands:
 
