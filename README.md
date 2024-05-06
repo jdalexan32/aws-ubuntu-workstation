@@ -63,7 +63,9 @@ Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```
 
 ```
 New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
-Code  C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
+```
+```
+code C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
 ```
 Paste Private Key and save.<br>
 Set permission of file equivalent to chmod 400 on Windows.
