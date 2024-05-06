@@ -87,7 +87,7 @@ Paste Access key ID and Secret Access Key and save.<br>
 Go to ```cloud workstation``` directory
 
 ```
-cd '.\cloud workstation\'
+cd '~\cloud workstation\'
 ```
 
 ## DEPLOYMENT
