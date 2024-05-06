@@ -107,7 +107,7 @@ Next modify the `terraform.tfvars` contents with the settings that are appropria
 
 -----------------------------<br>
 
-### AWS CloudShell Deployment
+### For AWS CloudShell Deployment
 
 Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
 
@@ -137,9 +137,10 @@ resource "aws_security_group_rule" "sg-rdp2" {
 ```
 
 Save your changes.<br>
+
 -----------------------------<br>
 
-### Windows Deployment
+### For Windows Deployment
 
 Make the following changes to `terraform.tfvars` file
 
