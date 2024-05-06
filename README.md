@@ -105,7 +105,7 @@ cd aws-ubuntu-workstation
 
 Next modify the `terraform.tfvars` contents with the settings that are appropriate for your AWS Account.<br>
 
-------<br>
+-----------------------------<br>
 
 ### AWS CloudShell Deployment
 
@@ -136,8 +136,8 @@ resource "aws_security_group_rule" "sg-rdp2" {
 }
 ```
 
-Save your changes.
-------<br>
+Save your changes.<br>
+-----------------------------<br>
 
 ### Windows Deployment
 
@@ -152,7 +152,7 @@ and change -
 ```
 aws_pem = "~/.ssh/aws/aws_ubuntu_workstation.pem"
 ```
-------<br>
+-----------------------------<br>
 
 Now run these commands:
 
