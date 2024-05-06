@@ -52,14 +52,14 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 ```
 
 ## Prep Windows PC for Deployment
-Open Powershell. Verify ```git``` and ```terraform``` are installed.
+1. Open Powershell. Verify ```git``` and ```terraform``` are installed.
 
 ```
 git --version
 terraform --version
 ```
 
-Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
+2. Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
 
 ```
 New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
@@ -76,7 +76,7 @@ icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /grant:r "$($env:u
 icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /inheritance:r
 ```
 
-Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
+3. Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
 
 ```
 code C:\Users\jdale\.aws\credentials
@@ -84,7 +84,36 @@ code C:\Users\jdale\.aws\credentials
 
 Paste Access key ID and Secret Access Key and save.<br>
 
-Go to ```cloud workstation``` directory
+4. Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
+
+Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
+
+Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add ```alt_rdp_source_ip = "127.0.0.1/32"``` and replace ```127.0.0.1``` with the address obtained in the previous step.<br>
+
+Run ```vim main.tf``` and add the following line to the end of the variable blocks:
+
+```
+variable "alt_rdp_source_ip" {
+  description = "An additional IP address from which to RDP"
+}
+```
+
+While still in vim insert mode, add the following block just below the block for the "sg-rdp" Security Group Rule:
+
+```
+resource "aws_security_group_rule" "sg-rdp2" {
+  type              = "ingress"
+  from_port         = 3389
+  to_port           = 3389
+  protocol          = "tcp"
+  cidr_blocks       = [var.alt_rdp_source_ip]
+  security_group_id = aws_security_group.work-sg.id
+}
+```
+
+Save your changes.<br>
+
+5. Go to ```cloud workstation``` directory
 
 ```
 cd '~\cloud workstation\'
@@ -157,6 +186,6 @@ by the Terraform script.
 
 ## REFERENCE
 ```
-https://github.com/Resistor52/terraform-cloud-workstation/tree/main
+[https://github.com/Resistor52/terraform-cloud-workstation/tree/main]
 ```
 
