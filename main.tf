@@ -14,14 +14,14 @@ variable "aws_pem" {
   description = "The PEM file to use for SSH. This is outputted with the IP for convenience"
 }
 
+variable "ssh_key" {
+  description = "The AWS Key Pair to use for SSH"
+}
+
 provider "aws" {
   region                  = var.aws_region
   shared_credentials_files= [var.aws_creds_file]
   profile                 = var.aws_profile
-}
-
-variable "ssh_key" {
-  description = "The AWS Key Pair to use for SSH"
 }
 
 data "http" "myip" {
