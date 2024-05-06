@@ -1,4 +1,4 @@
-# aws-ubuntu-workstation
+![image](https://github.com/jdalexan32/aws-ubuntu-workstation/assets/15988353/1b308054-dad2-4c06-9eea-67660fa1b1b2)# aws-ubuntu-workstation
 This terraform script deploys an Ubuntu Workstation with minimal additional software
 installed.
 
@@ -48,6 +48,25 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 
 ```
 -r--------. 1 cloudshell-user cloudshell-user 1675 May  6 06:54 aws_ubuntu_workstation.pem
+```
+
+## Prep Windows PC for Deployment
+Open Powershell. Go to ```cloud workstation``` directory
+
+```
+cd '.\cloud workstation\'
+```
+
+Verify ```git``` is installed
+
+```
+git --version
+```
+
+Verify ```terraform``` is installed
+
+```
+terraform --version
 ```
 
 ## DEPLOYMENT
