@@ -134,7 +134,8 @@ cd aws-ubuntu-workstation
 
 Next modify the `terraform.tfvars` contents with the settings that are appropriate for your AWS Account.<br>
 
-For a Windows PC deployment make the following changes to `terraform.tfvars` file
+---<br>
+ONLY for a Windows PC deployment make the following changes to `terraform.tfvars` file
 
 ```
 code .\terraform.tfvars
@@ -145,6 +146,7 @@ and change -
 ```
 aws_pem = "~/.ssh/aws/aws_ubuntu_workstation.pem"
 ```
+---<br>
 
 Now run these commands:
 
