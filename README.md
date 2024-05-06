@@ -102,3 +102,10 @@ such as Microsoft Terminal Services Client (MSTSC) to RDP to the IP address that
 by the Terraform script.
 
 **DON'T FORGET TO CHANGE THE RDP PASSWORD AFTER LOGON**
+
+
+## REFERENCE
+```
+https://github.com/Resistor52/terraform-cloud-workstation/tree/main
+```
+
