@@ -113,7 +113,11 @@ Add additional Security Group to enable RDP current machine (existing rule allow
 
 Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
 
-Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add ```alt_rdp_source_ip = "127.0.0.1/32"``` and replace ```127.0.0.1``` with the address obtained in the previous step.<br>
+Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add
+
+```alt_rdp_source_ip = "127.0.0.1/32"```
+
+Replace ```127.0.0.1``` with the address obtained from https://api.ipify.org.<br>
 
 Run ```vim main.tf``` and add the following line to the end of the variable blocks:
 
