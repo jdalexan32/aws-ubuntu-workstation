@@ -19,8 +19,10 @@ Configure the User Profile in the CloudShell.
 ```
 aws configure --profile myterraform
 ```
-Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.
-Enter ```eu-central-1``` for the Default region name and ```json``` for the Default output format.
+
+Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.<br>
+Enter ```eu-central-1``` for the Default region name.<br>
+And ```json``` for the Default output format.<br>
 Test it by running the following command:
 ```
 aws sts get-caller-identity --profile myterraform
@@ -36,7 +38,7 @@ Useful ```vim``` commands:
 - Press "i" key to enter insert mode.
 - Press ```ESC``` to exit insert mode.
 - Save file and exit ```:wq```.
-- Exit without saving file ```:q!```
+- Exit without saving file ```:q!```<br>
 
 Change PEM file permissions
 
@@ -51,22 +53,70 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 ```
 
 ## Prep Windows PC for Deployment
-Open Powershell. Go to ```cloud workstation``` directory
-
-```
-cd '.\cloud workstation\'
-```
-
-Verify ```git``` is installed
+Open Powershell. Verify ```git``` and ```terraform``` are installed.
 
 ```
 git --version
-```
-
-Verify ```terraform``` is installed
-
-```
 terraform --version
+```
+
+Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
+
+```
+New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
+```
+```
+code C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
+```
+Paste Private Key and save.<br>
+Set permission of file equivalent to chmod 400 on Windows.
+```
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /reset
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /grant:r "$($env:username):(r)"
+icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /inheritance:r
+```
+
+Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
+
+```
+code C:\Users\jdale\.aws\credentials
+```
+
+Paste Access key ID and Secret Access Key and save.  <br>
+
+Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
+
+Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
+
+Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add ```alt_rdp_source_ip = "127.0.0.1/32"``` and replace ```127.0.0.1``` with the address obtained in the previous step.<br>
+
+Run ```vim main.tf``` and add the following line to the end of the variable blocks:
+
+```
+variable "alt_rdp_source_ip" {
+  description = "An additional IP address from which to RDP"
+}
+```
+
+While still in vim insert mode, add the following block just below the block for the "sg-rdp" Security Group Rule:
+
+```
+resource "aws_security_group_rule" "sg-rdp2" {
+  type              = "ingress"
+  from_port         = 3389
+  to_port           = 3389
+  protocol          = "tcp"
+  cidr_blocks       = [var.alt_rdp_source_ip]
+  security_group_id = aws_security_group.work-sg.id
+}
+```
+
+Save your changes.   <br>
+
+Go to ```cloud workstation``` directory
+
+```
+cd '~\cloud workstation\'
 ```
 
 ## DEPLOYMENT
@@ -82,8 +132,19 @@ and then
 cd aws-ubuntu-workstation
 ```
 
-Next modify the `terraform.tfvars` contents with the settings that are appropriate
-for your AWS Account.
+Next modify the `terraform.tfvars` contents with the settings that are appropriate for your AWS Account.<br>
+
+For a Windows PC deployment make the following changes to `terraform.tfvars` file
+
+```
+code .\terraform.tfvars
+```
+
+and change -
+
+```
+aws_pem = "~/.ssh/aws/aws_ubuntu_workstation.pem"
+```
 
 Now run these commands:
 
@@ -125,6 +186,6 @@ by the Terraform script.
 
 ## REFERENCE
 ```
-https://github.com/Resistor52/terraform-cloud-workstation/tree/main
+[https://github.com/Resistor52/terraform-cloud-workstation/tree/main]
 ```
 
