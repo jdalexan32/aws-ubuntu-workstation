@@ -195,5 +195,5 @@ by the Terraform script.
 
 ## REFERENCE
 
-(https://github.com/Resistor52/terraform-cloud-workstation/tree/main)
+https://github.com/Resistor52/terraform-cloud-workstation/tree/main
 
