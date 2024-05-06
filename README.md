@@ -19,6 +19,7 @@ Configure the User Profile in the CloudShell.
 ```
 aws configure --profile myterraform
 ```
+
 Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.<br>
 Enter ```eu-central-1``` for the Default region name.<br>
 And ```json``` for the Default output format.<br>
@@ -37,7 +38,7 @@ Useful ```vim``` commands:
 - Press "i" key to enter insert mode.
 - Press ```ESC``` to exit insert mode.
 - Save file and exit ```:wq```.
-- Exit without saving file ```:q!```
+- Exit without saving file ```:q!```<br>
 
 Change PEM file permissions
 
@@ -52,14 +53,14 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 ```
 
 ## Prep Windows PC for Deployment
-1. Open Powershell. Verify ```git``` and ```terraform``` are installed.
+Open Powershell. Verify ```git``` and ```terraform``` are installed.
 
 ```
 git --version
 terraform --version
 ```
 
-2. Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
+Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```~\.ssh\aws\``` directory
 
 ```
 New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
@@ -69,22 +70,21 @@ code C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
 ```
 Paste Private Key and save.<br>
 Set permission of file equivalent to chmod 400 on Windows.
-
 ```
 icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /reset
 icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /grant:r "$($env:username):(r)"
 icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /inheritance:r
 ```
 
-3. Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
+Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
 
 ```
 code C:\Users\jdale\.aws\credentials
 ```
 
-Paste Access key ID and Secret Access Key and save.<br>
+Paste Access key ID and Secret Access Key and save.  <br>
 
-4. Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
+Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
 
 Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
 
@@ -111,9 +111,9 @@ resource "aws_security_group_rule" "sg-rdp2" {
 }
 ```
 
-Save your changes.<br>
+Save your changes.   <br>
 
-5. Go to ```cloud workstation``` directory
+Go to ```cloud workstation``` directory
 
 ```
 cd '~\cloud workstation\'
