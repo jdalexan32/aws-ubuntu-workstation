@@ -2,8 +2,8 @@
 This terraform script deploys an Ubuntu Workstation with minimal additional software
 installed.
 
-## AWS CLOUDSHELL SETUP
-Open new CloudShell environment
+## AWS CloudShell Setup
+Open new CloudShell environment.
 Install Terraform from - https://releases.hashicorp.com/terraform/
 
 ```
@@ -14,14 +14,14 @@ mv terraform ~/bin/
 rm terraform*.zip
 ```
 
-Configure the User Profile in the CloudShell
+Configure the User Profile in the CloudShell.
 
 ```
 aws configure --profile myterraform
 ```
-Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key
-Enter ```eu-central-1``` for the Default region name and ```json``` for the Default output format
-Test it by running the following command
+Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.
+Enter ```eu-central-1``` for the Default region name and ```json``` for the Default output format.
+Test it by running the following command:
 ```
 aws sts get-caller-identity --profile myterraform
 ```
@@ -33,10 +33,10 @@ vim aws_ubuntu_workstation.pem
 ```
 
 Useful ```vim``` commands:
-Press "i" key to enter insert mode.
-Press ```ESC``` to exit insert mode.
-Save file and exit ```:wq```.
-Exit without saving file ```:q!```
+- Press "i" key to enter insert mode.
+- Press ```ESC``` to exit insert mode.
+- Save file and exit ```:wq```.
+- Exit without saving file ```:q!```
 
 Change PEM file permissions
 
