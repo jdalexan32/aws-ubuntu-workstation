@@ -64,7 +64,7 @@ Make a copy of the PEM file from Bitwardem "aws_ubuntu_workstation.pem" into ```
 New-Item C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
 Code  C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem
 ```
-Paste Private Key and save.__
+Paste Private Key and save.\
 
 Set permission of file equivalent to chmod 400 on Windows.
 
@@ -80,7 +80,7 @@ Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwa
 code .\.aws\credentials
 ```
 
-Paste Access key ID and Secret Access Key and save.__
+Paste Access key ID and Secret Access Key and save.\
 
 Go to ```cloud workstation``` directory
 
@@ -102,7 +102,7 @@ cd aws-ubuntu-workstation
 ```
 
 Next modify the `terraform.tfvars` contents with the settings that are appropriate
-for your AWS Account.__
+for your AWS Account.\
 
 for Windows PC for Deployment make the following changes to `terraform.tfvars` file
 
