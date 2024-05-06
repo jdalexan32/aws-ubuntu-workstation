@@ -2,7 +2,7 @@
 This terraform script deploys an Ubuntu Workstation with minimal additional software
 installed.
 
-## AWS CloudShell Deployment
+## AWS CLOUDSHELL SETUP
 Open new CloudShell environment
 Install Terraform from - https://releases.hashicorp.com/terraform/
 
@@ -32,10 +32,22 @@ Make a copy of the PEM file on CloudShell in ~/ from Bitwardem "aws_ubuntu_works
 vim aws_ubuntu_workstation.pem
 ```
 
+Useful ```vim``` commands:
+Press "i" key to enter insert mode.
+Press ```ESC``` to exit insert mode.
+Save file and exit ```:wq```.
+Exit without saving file ```:q!```
+
 Change PEM file permissions
 
 ```
 chmod 400 ~/aws_ubuntu_workstation.pem
+```
+
+```ls -als``` to ensure file permissions have changed to read only
+
+```
+-r--------. 1 cloudshell-user cloudshell-user 1675 May  6 06:54 aws_ubuntu_workstation.pem
 ```
 
 ## DEPLOYMENT
