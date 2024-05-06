@@ -19,8 +19,9 @@ Configure the User Profile in the CloudShell.
 ```
 aws configure --profile myterraform
 ```
-Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.
-Enter ```eu-central-1``` for the Default region name and ```json``` for the Default output format.
+Paste "aws ubuntu-workstation-user" Access key ID from Bitwarden and then the Secret Access Key.<br>
+Enter ```eu-central-1``` for the Default region name.<br>
+And ```json``` for the Default output format.<br>
 Test it by running the following command:
 ```
 aws sts get-caller-identity --profile myterraform
