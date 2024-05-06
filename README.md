@@ -79,7 +79,7 @@ icacls.exe C:\Users\jdale\.ssh\aws\aws_ubuntu_workstation.pem /inheritance:r
 Add "aws ubuntu-workstation-user" Access key ID and Secret Access Key from Bitwarden into '\.aws\credentials' file
 
 ```
-code .\.aws\credentials
+code C:\Users\jdale\.aws\credentials
 ```
 
 Paste Access key ID and Secret Access Key and save.<br>
