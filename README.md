@@ -52,36 +52,7 @@ chmod 400 ~/aws_ubuntu_workstation.pem
 -r--------. 1 cloudshell-user cloudshell-user 1675 May  6 06:54 aws_ubuntu_workstation.pem
 ```
 
-Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
-
-Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
-
-Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add ```alt_rdp_source_ip = "127.0.0.1/32"``` and replace ```127.0.0.1``` with the address obtained in the previous step.<br>
-
-Run ```vim main.tf``` and add the following line to the end of the variable blocks:
-
-```
-variable "alt_rdp_source_ip" {
-  description = "An additional IP address from which to RDP"
-}
-```
-
-While still in vim insert mode, add the following block just below the block for the "sg-rdp" Security Group Rule:
-
-```
-resource "aws_security_group_rule" "sg-rdp2" {
-  type              = "ingress"
-  from_port         = 3389
-  to_port           = 3389
-  protocol          = "tcp"
-  cidr_blocks       = [var.alt_rdp_source_ip]
-  security_group_id = aws_security_group.work-sg.id
-}
-```
-
-Save your changes.<br>
-
-## Prep Windows PC for Deployment
+## Prep Windows Deployment
 Open Powershell. Verify ```git``` and ```terraform``` are installed.
 
 ```
@@ -135,7 +106,42 @@ cd aws-ubuntu-workstation
 Next modify the `terraform.tfvars` contents with the settings that are appropriate for your AWS Account.<br>
 
 ------<br>
-ONLY for a Windows PC deployment make the following changes to `terraform.tfvars` file
+
+### AWS CloudShell Deployment
+
+Add additional Security Group to enable RDP current machine (existing rule allows RDP from where the Terraform script is running in CloudShell).<br>
+
+Open a new tab on your web browser and navigate to https://api.ipify.org and copy the IP address it displays. This is your public IP address.<br>
+
+Run ```vim terraform.tfvars``` enter insert mode, move to the bottom of the file and add ```alt_rdp_source_ip = "127.0.0.1/32"``` and replace ```127.0.0.1``` with the address obtained in the previous step.<br>
+
+Run ```vim main.tf``` and add the following line to the end of the variable blocks:
+
+```
+variable "alt_rdp_source_ip" {
+  description = "An additional IP address from which to RDP"
+}
+```
+
+While still in vim insert mode, add the following block just below the block for the "sg-rdp" Security Group Rule:
+
+```
+resource "aws_security_group_rule" "sg-rdp2" {
+  type              = "ingress"
+  from_port         = 3389
+  to_port           = 3389
+  protocol          = "tcp"
+  cidr_blocks       = [var.alt_rdp_source_ip]
+  security_group_id = aws_security_group.work-sg.id
+}
+```
+
+Save your changes.
+------<br>
+
+### Windows Deployment
+
+Make the following changes to `terraform.tfvars` file
 
 ```
 code .\terraform.tfvars
